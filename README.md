@@ -1,21 +1,36 @@
-<<<<<<< HEAD
-# React + Vite
+# Weather Map React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React weather map application with interactive Leaflet layers, OpenWeather-powered weather overlays, city search, current-location detection, and a live weather details panel.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Interactive base map with OpenWeather layers for temperature, wind, rain, clouds, and pressure.
+- City search and current-location weather lookup.
+- Adjustable weather overlay opacity.
+- Dynamic legend and location marker popup.
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
 
-## Expanding the ESLint configuration
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# weather-map-react
-A feature-rich weather application that displays interactive weather maps, live weather data, location search, current location detection, and dynamic weather information using React, Leaflet, Zustand, Tailwind CSS, and OpenWeather API.
->>>>>>> a7428aa0fafc7ed2652b5e5b7ca7b0bc5c1d19fe
+2. Add your OpenWeather API key to `.env`:
+
+   ```bash
+   VITE_OPENWEATHER_API_KEY=your_api_key
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+## Scripts
+
+- `npm run dev` starts the Vite development server.
+- `npm run build` builds the production bundle.
+- `npm run lint` runs ESLint.

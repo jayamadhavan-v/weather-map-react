@@ -1,14 +1,20 @@
-import React from 'react';
+import { memo, useMemo, useRef } from "react";
 import { Marker, Popup } from "react-leaflet";
 import useWeatherStore from "../../store/useWeatherStore";
 
-import { useRef } from "react";
-
-
 const LocationMarker = () => {
 
-    const { selectedLocation } = useWeatherStore();
+    const selectedLocation = useWeatherStore((state) => state.selectedLocation);
     const markerRef = useRef(null);
+
+    const eventHandlers = useMemo(() => ({
+        mouseover: () => {
+            markerRef.current?.openPopup();
+        },
+        mouseout: () => {
+            markerRef.current?.closePopup();
+        },
+    }), []);
 
     if (!selectedLocation) {
         return null;
@@ -16,23 +22,13 @@ const LocationMarker = () => {
 
     const position = [selectedLocation.lat, selectedLocation.lon];
 
-
-
     return (
 
         <Marker position={position}
 
             ref={markerRef}
 
-            eventHandlers={{
-                mouseover: () => {
-                    markerRef.current.openPopup();
-                },
-
-                mouseout: () => {
-                    markerRef.current.closePopup();
-                },
-            }}>
+            eventHandlers={eventHandlers}>
             <Popup>
                 <h3>{selectedLocation.city}</h3>
 
@@ -51,4 +47,4 @@ const LocationMarker = () => {
     )
 }
 
-export default LocationMarker;
+export default memo(LocationMarker);

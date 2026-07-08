@@ -1,30 +1,27 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import useWeatherStore from "../../store/useWeatherStore";
 
 const FlyToLocation = () => {
   const map = useMap();
 
-  const { selectedLocation } = useWeatherStore();
-  const isInitialRender = useRef(true);
+  const selectedLocation = useWeatherStore((state) => state.selectedLocation);
 
   useEffect(() => {
-
-    if (isInitialRender.current) {
-    isInitialRender.current = false;
-    return;
-  }
     if (!selectedLocation) return;
 
+    const position = [
+      selectedLocation.lat,
+      selectedLocation.lon,
+    ];
+
     map.flyTo(
-      [
-        selectedLocation.lat,
-        selectedLocation.lon,
-      ],
+      position,
       12,
       {
         animate: true,
-        duration: 1.8,
+        duration: 1.2,
+        easeLinearity: 0.25,
       }
     );
   }, [selectedLocation, map]);

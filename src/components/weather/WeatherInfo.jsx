@@ -1,9 +1,10 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { memo } from "react";
 import useWeatherStore from "../../store/useWeatherStore";
 
+const degree = "\u00b0";
+
 const WeatherInfo = () => {
-  const { currentWeather } = useWeatherStore();
+  const currentWeather = useWeatherStore((state) => state.currentWeather);
 
   if (!currentWeather) return null;
 
@@ -15,7 +16,6 @@ const WeatherInfo = () => {
 
   const weatherIcon = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
 
-  // Convert UNIX Timestamp to Local Time
   const formatTime = (timestamp) => {
     return new Date(timestamp * 1000).toLocaleTimeString([], {
       hour: "2-digit",
@@ -23,7 +23,6 @@ const WeatherInfo = () => {
     });
   };
 
-  // Convert Wind Degree to Direction
   const getWindDirection = (deg) => {
     const directions = [
       "N",
@@ -40,23 +39,20 @@ const WeatherInfo = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4 }}
+    <div
       className="absolute top-4 right-5 z-[1000]
-      w-96 rounded-2xl
-      bg-white/20 backdrop-blur-md
-      border border-white/30
+      max-h-[calc(100vh-2rem)] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto rounded-lg
+      bg-slate-900/80 backdrop-blur-md
+      border border-white/20
       shadow-2xl
       text-white
       p-4"
+      aria-live="polite"
     >
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold">
-            📍 {currentWeather.name}, {sys.country}
+            {currentWeather.name}, {sys.country}
           </h2>
 
           <p className="capitalize text-gray-200">
@@ -71,94 +67,90 @@ const WeatherInfo = () => {
         />
       </div>
 
-      {/* Temperature */}
       <div className="text-center mt-5">
         <h1 className="text-6xl font-bold">
-          {Math.round(main.temp)}°
+          {Math.round(main.temp)}{degree}
         </h1>
 
         <p className="text-lg text-gray-200 mt-2">
-          Feels Like {Math.round(main.feels_like)}°C
+          Feels Like {Math.round(main.feels_like)}{degree}C
         </p>
       </div>
 
       <hr className="my-5 border-white/20" />
 
-      {/* Weather Details */}
       <div className="grid grid-cols-2 gap-4 text-sm">
-
         <InfoCard
-          title="💧 Humidity"
+          title="Humidity"
           value={`${main.humidity}%`}
         />
 
         <InfoCard
-          title="🌬 Wind"
+          title="Wind"
           value={`${wind.speed} m/s`}
         />
 
         <InfoCard
-          title="🧭 Direction"
+          title="Direction"
           value={getWindDirection(wind.deg)}
         />
 
         <InfoCard
-          title="📈 Pressure"
+          title="Pressure"
           value={`${main.pressure} hPa`}
         />
 
         <InfoCard
-          title="👀 Visibility"
+          title="Visibility"
           value={`${currentWeather.visibility / 1000} km`}
         />
 
         <InfoCard
-          title="🔺 Max Temp"
-          value={`${Math.round(main.temp_max)}°C`}
+          title="Max Temp"
+          value={`${Math.round(main.temp_max)}${degree}C`}
         />
 
         <InfoCard
-          title="🔻 Min Temp"
-          value={`${Math.round(main.temp_min)}°C`}
+          title="Min Temp"
+          value={`${Math.round(main.temp_min)}${degree}C`}
         />
 
         <InfoCard
-          title="🌡 Feels Like"
-          value={`${Math.round(main.feels_like)}°C`}
+          title="Feels Like"
+          value={`${Math.round(main.feels_like)}${degree}C`}
         />
 
         <InfoCard
-          title="🌅 Sunrise"
+          title="Sunrise"
           value={formatTime(sys.sunrise)}
         />
 
         <InfoCard
-          title="🌇 Sunset"
+          title="Sunset"
           value={formatTime(sys.sunset)}
         />
 
         <InfoCard
-          title="📍 Latitude"
+          title="Latitude"
           value={coord.lat.toFixed(2)}
         />
 
         <InfoCard
-          title="📍 Longitude"
+          title="Longitude"
           value={coord.lon.toFixed(2)}
         />
 
         <InfoCard
-          title="🕒 Updated"
+          title="Updated"
           value={formatTime(currentWeather.dt)}
         />
-
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 const InfoCard = ({ title, value }) => (
-  <div className="bg-white/10 rounded-xl p-3">
+  <div className="bg-white/10 rounded-lg p-3">
     <p className="text-gray-300 text-xs">{title}</p>
 
     <h3 className="font-semibold text-lg">
@@ -167,4 +159,4 @@ const InfoCard = ({ title, value }) => (
   </div>
 );
 
-export default WeatherInfo;
+export default memo(WeatherInfo);
