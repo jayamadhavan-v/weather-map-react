@@ -11,7 +11,7 @@ import "leaflet/dist/leaflet.css";
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Toaster
-      position="top-right"
+      position="top-center"
       reverseOrder={false}
     />
     <App />
