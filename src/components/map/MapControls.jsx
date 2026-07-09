@@ -35,9 +35,9 @@ const MapControls = () => {
   const selectedLayer = useWeatherStore((state) => state.selectedLayer);
   const setSelectedLayer = useWeatherStore((state) => state.setSelectedLayer);
 
-  const selectedStyle = "my-3 bg-blue-500 text-white px-4 py-2 rounded font-medium cursor-pointer flex items-center justify-center gap-1 transition-transform hover:scale-110 active:scale-105";
+  const selectedStyle = "my-1  bg-blue-500 text-white px-4 py-2 rounded font-medium cursor-pointer flex items-center justify-center  transition-transform hover:scale-110 active:scale-105";
 
-  const notSelectedStyle = "my-3 bg-gray-200 px-4 py-2 rounded font-medium cursor-pointer flex items-center justify-center gap-1 transition-transform hover:scale-110 active:scale-105";
+  const notSelectedStyle = "my-1 bg-gray-200 px-4 py-2 rounded font-medium cursor-pointer flex items-center justify-center gap-1 transition-transform hover:scale-110 active:scale-105";
   
   return (
     <div className='absolute top-4 left-4 z-[1000] flex flex-col gap-1 bg-white rounded-lg shadow-lg p-2'>

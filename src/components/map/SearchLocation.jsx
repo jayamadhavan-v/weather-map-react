@@ -136,7 +136,7 @@ const SearchLocation = () => {
 
     return (
         <form
-            className='absolute top-4 left-20 right-4 z-[1000] flex flex-wrap bg-white px-4 py-2 font-semibold gap-2 rounded-lg shadow-lg sm:right-auto'
+            className='absolute top-4 left-24  z-[1000] flex flex-wrap bg-white px-4 py-2 font-semibold gap-2 rounded-lg shadow-lg sm:right-auto'
             onSubmit={handleSearch}
         >
             <div className='min-w-0 flex-1 sm:flex-none'>
