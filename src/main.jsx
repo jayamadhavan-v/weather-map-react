@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Toaster } from "react-hot-toast";
 
 import App from './App.jsx'
+import "./utils/fixLeafletIcon";
 
 import './index.css'
 import "leaflet/dist/leaflet.css";
